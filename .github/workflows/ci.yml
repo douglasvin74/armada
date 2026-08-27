@@ -1,0 +1,39 @@
+# =============================================================================
+#  CI - roda a suite de testes a cada push e pull request.
+#
+#  Sem dependencia de teste: `npm test` usa o runner nativo do Node.
+#  A matriz cobre o piso declarado em package.json (engines: >=18) e o LTS
+#  atual - se o 18 quebrar, a declaracao de engines esta errada e o CI avisa.
+# =============================================================================
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: testes (Node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false          # se o 18 quebrar, ainda queremos ver o 22
+      matrix:
+        node: ['18', '22']
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+
+      # `npm ci` instala exatamente o package-lock.json (build reproduzivel).
+      # `npm install` poderia atualizar o lock e mascarar uma quebra.
+      - run: npm ci
+
+      - run: npm test

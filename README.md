@@ -1,5 +1,9 @@
 # ARMADA — Batalha Naval 3D multiplayer no navegador
 
+[![CI](https://github.com/douglasvin74/armada/actions/workflows/ci.yml/badge.svg)](https://github.com/douglasvin74/armada/actions/workflows/ci.yml)
+[![Node.js](https://img.shields.io/badge/node-%3E%3D18-5FA04E?logo=node.js&logoColor=white)](https://nodejs.org)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+
 Jogo de guerra de navios em 3ª pessoa, até 8 jogadores, partidas de 5 minutos com
 reinício automático. Servidor **Node.js + Express + Socket.IO**, cliente **Three.js
 0.160.0** em ES Modules puros — **sem etapa de build, sem banco de dados e sem um
@@ -148,10 +152,11 @@ Ao afundar, você volta ao mar em 4 segundos, em posição aleatória.
 ## Estrutura de arquivos
 
 ```
-meu-jogo-3d/
+armada/
 ├── package.json
 ├── README.md
 ├── LICENSE
+├── .github/workflows/ci.yml   testes em Node 18 e 22 a cada push
 ├── server/
 │   ├── index.js      Express + Socket.IO + detecção de IP da LAN + banner
 │   ├── game.js       loop autoritativo, estado da partida, colisões, placar
@@ -247,6 +252,10 @@ node --test --test-name-pattern="cooldown" test/*.test.js
 Alguns testes travam **invariantes de arquitetura**, não só comportamento: se
 `stepShip` ou `generateIslands` deixarem de ser determinísticos, a predição do
 cliente diverge da verdade do servidor e o teste falha na hora.
+
+A suíte roda no GitHub Actions a cada push e pull request, em Node 18 (o piso
+declarado em `engines`) e Node 22 — veja
+[`.github/workflows/ci.yml`](.github/workflows/ci.yml).
 
 ---
 
