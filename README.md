@@ -9,6 +9,8 @@ reinício automático. Servidor **Node.js + Express + Socket.IO**, cliente **Thr
 0.160.0** em ES Modules puros — **sem etapa de build, sem banco de dados e sem um
 único asset externo** (toda a arte é geometria primitiva, `CanvasTexture` e Web Audio).
 
+![Arquitetura de rede do Armada](assets/arquitetura.svg)
+
 ---
 
 ## Como rodar
@@ -157,6 +159,7 @@ armada/
 ├── README.md
 ├── LICENSE
 ├── .github/workflows/ci.yml   testes em Node 18 e 22 a cada push
+├── assets/                    diagrama e capturas usados no README
 ├── server/
 │   ├── index.js      Express + Socket.IO + detecção de IP da LAN + banner
 │   ├── game.js       loop autoritativo, estado da partida, colisões, placar
@@ -260,6 +263,8 @@ declarado em `engines`) e Node 22 — veja
 ---
 
 ## Como a rede funciona
+
+O diagrama no topo resume o desenho. Em detalhe:
 
 - O **servidor é a fonte da verdade**: posição, vida, placar, acertos e o
   cronômetro. Ele roda `game.update()` a 30 Hz e faz `io.emit('state', ...)` no

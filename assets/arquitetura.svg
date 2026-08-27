@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 640" width="1200" height="640" role="img" aria-label="Arquitetura de rede do Armada: o cliente prediz, o servidor decide e os dois rodam a mesma fisica">
+<title>Arquitetura de rede do Armada</title>
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#7fd4ff"/></marker><marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#6fe08a"/></marker></defs>
+<rect width="1200" height="640" fill="#0d1b2a"/>
+<text x="600" y="52" font-family='ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="25" fill="#ffffff" text-anchor="middle" font-weight="700" letter-spacing=".5">ARMADA &#183; arquitetura de rede</text>
+<text x="600" y="77" font-family='ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="14" fill="#8ea6b8" text-anchor="middle" font-weight="400">o servidor decide, o cliente adianta &#8212; e os dois rodam a mesma f&#237;sica</text>
+<rect x="46" y="108" width="440" height="286" rx="12" fill="#16324a" stroke="#4a86e8" stroke-width="2"/>
+<text x="72" y="141" font-family='ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="14" fill="#7fd4ff" text-anchor="start" font-weight="400" letter-spacing="2.6">CLIENTE &#183; NAVEGADOR</text>
+<text x="72" y="171" font-family='ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="16.5" fill="#ffffff" text-anchor="start" font-weight="400">Render a 60 FPS (Three.js)</text>
+<line x1="72" y1="188" x2="460" y2="188" stroke="#2c4a68" stroke-width="1"/>
+<text x="72" y="219" font-family='ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="16.5" fill="#dce8f2" text-anchor="start" font-weight="400">O pr&#243;prio navio: <tspan font-weight="700">predi&#231;&#227;o</tspan></text>
+<text x="72" y="243" font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size="15" fill="#ffd23f" text-anchor="start" font-weight="400">stepShip()</text>
+<text x="176" y="243" font-family='ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="14" fill="#8ea6b8" text-anchor="start" font-weight="400">a cada quadro &#8212; a tecla responde na hora</text>
+<text x="72" y="285" font-family='ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="16.5" fill="#dce8f2" text-anchor="start" font-weight="400">Os outros navios: <tspan font-weight="700">interpola&#231;&#227;o</tspan></text>
+<text x="72" y="309" font-family='ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="14" fill="#8ea6b8" text-anchor="start" font-weight="400">desenhados 110 ms no passado, entre os dois</text>
+<text x="72" y="329" font-family='ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="14" fill="#8ea6b8" text-anchor="start" font-weight="400">snapshots que cercam esse instante</text>
+<text x="72" y="368" font-family='ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="14" fill="#8ea6b8" text-anchor="start" font-weight="400">Reconcilia com o servidor devagar (~2/s).</text>
+<text x="72" y="386" font-family='ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="14" fill="#8ea6b8" text-anchor="start" font-weight="400">Erro &gt; 14 unidades: salto direto.</text>
+<rect x="714" y="108" width="440" height="286" rx="12" fill="#1a3b2f" stroke="#53d769" stroke-width="2"/>
+<text x="740" y="141" font-family='ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="14" fill="#6fe08a" text-anchor="start" font-weight="400" letter-spacing="2.6">SERVIDOR &#183; NODE.JS</text>
+<text x="740" y="171" font-family='ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="16.5" fill="#ffffff" text-anchor="start" font-weight="400">Loop autoritativo a 30 Hz</text>
+<line x1="740" y1="188" x2="1128" y2="188" stroke="#2a5544" stroke-width="1"/>
+<text x="740" y="219" font-family='ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="16.5" fill="#dce8f2" text-anchor="start" font-weight="700">&#201; a fonte da verdade</text>
+<text x="740" y="243" font-family='ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="14" fill="#9fc4ae" text-anchor="start" font-weight="400">posi&#231;&#227;o, vida, placar, colis&#245;es, cron&#244;metro</text>
+<text x="740" y="285" font-family='ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="16.5" fill="#dce8f2" text-anchor="start" font-weight="700">Valida tudo que chega</text>
+<text x="740" y="309" font-family='ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="14" fill="#9fc4ae" text-anchor="start" font-weight="400">velocidade, cad&#234;ncia de tiro, eleva&#231;&#227;o,</text>
+<text x="740" y="329" font-family='ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="14" fill="#9fc4ae" text-anchor="start" font-weight="400">apelido, chat e taxa de eventos por socket</text>
+<text x="740" y="368" font-family='ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="14" fill="#9fc4ae" text-anchor="start" font-weight="400">Uma thread: um cliente que inunde o socket</text>
+<text x="740" y="386" font-family='ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="14" fill="#9fc4ae" text-anchor="start" font-weight="400">travaria todos &#8212; da&#237; os tetos de prote&#231;&#227;o.</text>
+<line x1="492" y1="196" x2="702" y2="196" stroke="#7fd4ff" stroke-width="2.5" marker-end="url(#ar)"/>
+<text x="597" y="181" font-family='ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="14" fill="#7fd4ff" text-anchor="middle" font-weight="700">inten&#231;&#227;o &#183; 30 Hz</text>
+<text x="597" y="222" font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size="15" fill="#7fd4ff" text-anchor="middle" font-weight="400">{ th, ru, bo, ay, ap }</text>
+<text x="597" y="243" font-family='ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="14" fill="#8ea6b8" text-anchor="middle" font-weight="400">nunca posi&#231;&#227;o</text>
+<line x1="702" y1="318" x2="492" y2="318" stroke="#6fe08a" stroke-width="2.5" marker-end="url(#ag)"/>
+<text x="597" y="303" font-family='ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="14" fill="#6fe08a" text-anchor="middle" font-weight="700">snapshot &#183; 30 Hz</text>
+<text x="597" y="344" font-family='ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="14" fill="#9fc4ae" text-anchor="middle" font-weight="400">posi&#231;&#245;es, vida, placar,</text>
+<text x="597" y="363" font-family='ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="14" fill="#9fc4ae" text-anchor="middle" font-weight="400">granadas e efeitos</text>
+<path d="M 266 394 L 266 452" stroke="#ffd23f" stroke-width="2" stroke-dasharray="6 5"/>
+<path d="M 934 394 L 934 452" stroke="#ffd23f" stroke-width="2" stroke-dasharray="6 5"/>
+<rect x="150" y="452" width="900" height="146" rx="12" fill="#2e2a15" stroke="#ffd23f" stroke-width="2"/>
+<text x="600" y="486" font-family='ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="14" fill="#ffd23f" text-anchor="middle" font-weight="400" letter-spacing="2.6">M&#211;DULO COMPARTILHADO &#8212; UMA &#218;NICA FONTE</text>
+<text x="600" y="518" font-family='ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' font-size="15" fill="#ffffff" text-anchor="middle" font-weight="400">server/config.js &#183; server/shared.js</text>
+<text x="600" y="547" font-family='ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="14" fill="#d8c98e" text-anchor="middle" font-weight="400">moram em /server, mas s&#227;o servidos ao navegador como /js/config.js e /js/shared.js</text>
+<text x="600" y="573" font-family='ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="14" fill="#d8c98e" text-anchor="middle" font-weight="400">a f&#237;sica do navio e as constantes existem UMA vez e rodam id&#234;nticas nos dois lados &#8212;</text>
+<text x="600" y="591" font-family='ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="14" fill="#d8c98e" text-anchor="middle" font-weight="400">&#233; o que faz a predi&#231;&#227;o do cliente convergir com a verdade do servidor</text>
+</svg>
