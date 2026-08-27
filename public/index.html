@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Armada - Batalha Naval 3D</title>
+  <!-- favicon inline: evita o 404 classico de /favicon.ico -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='26'%3E%E2%9A%93%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="/style.css" />
+
+  <!-- Three.js servido do node_modules pelo Express (sem CDN, funciona offline) -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "/vendor/three/build/three.module.js"
+    }
+  }
+  </script>
+</head>
+<body>
+
+<canvas id="game"></canvas>
+
+<!-- ============================ HUD EM JOGO ============================ -->
+<div id="hud" class="hidden">
+
+  <div id="topbar">
+    <div id="matchTimer">5:00</div>
+    <div id="topScores"></div>
+  </div>
+
+  <div id="stats">
+    <span id="fps">-- FPS</span>
+    <span id="ping">-- ms</span>
+    <span id="muteTag" class="hidden">MUDO</span>
+  </div>
+
+  <div id="crosshair">
+    <div class="ch-dot"></div>
+    <div class="ch-ring"></div>
+  </div>
+
+  <div id="statusPanel">
+    <div class="bar-row">
+      <span class="bar-label">CASCO</span>
+      <div class="bar"><div id="hpFill" class="fill hp"></div></div>
+      <span id="hpText" class="bar-value">100</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">TURBINA</span>
+      <div class="bar"><div id="stFill" class="fill st"></div></div>
+      <span id="stText" class="bar-value">100</span>
+    </div>
+    <div id="speedRow">
+      <span id="speedText">0 nós</span>
+      <span id="scoreText">0 pts</span>
+    </div>
+  </div>
+
+  <div id="weapons">
+    <div class="weapon" id="wMain"><b>LMB</b> Canhão<div class="cd"><i id="cdMain"></i></div></div>
+    <div class="weapon" id="wBroad"><b>ESPAÇO</b> Salva lateral<div class="cd"><i id="cdBroad"></i></div></div>
+  </div>
+
+  <div id="killfeed"></div>
+  <div id="chatLog"></div>
+  <div id="centerMsg" class="hidden"></div>
+
+  <form id="chatForm" class="hidden" autocomplete="off">
+    <span>Dizer:</span><input id="chatInput" maxlength="90" autocomplete="off" />
+  </form>
+
+  <div id="hintBar">WASD navegar &nbsp;|&nbsp; Mouse mirar &nbsp;|&nbsp; Clique atirar &nbsp;|&nbsp; Espaço salva &nbsp;|&nbsp; Shift turbina &nbsp;|&nbsp; C recentrar &nbsp;|&nbsp; Tab placar &nbsp;|&nbsp; Enter chat &nbsp;|&nbsp; M som</div>
+</div>
+
+<div id="damageFlash"></div>
+
+<!-- ============================== PLACAR (TAB) ========================= -->
+<div id="scoreboard" class="overlay hidden">
+  <div class="panel">
+    <h2>PLACAR <small id="sbMatch"></small></h2>
+    <table>
+      <thead><tr><th>#</th><th>Capitão</th><th>Pontos</th><th>Afund.</th><th>Perdas</th><th>Ping</th></tr></thead>
+      <tbody id="sbBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============================ TELA INICIAL =========================== -->
+<div id="startScreen" class="overlay">
+  <div class="panel wide">
+    <h1>ARMADA</h1>
+    <p class="tagline">Batalha naval 3D em 3ª pessoa &middot; 5 minutos &middot; até 8 capitães</p>
+
+    <label class="field">
+      <span>Seu apelido</span>
+      <input id="nickInput" maxlength="14" placeholder="Capitão" />
+    </label>
+
+    <div class="field">
+      <span>Cor do casco</span>
+      <div id="colorPicker"></div>
+    </div>
+
+    <button id="joinBtn">ENTRAR NA PARTIDA</button>
+    <button id="settingsBtn" class="ghost">OPÇÕES</button>
+    <div id="startError" class="error hidden"></div>
+
+    <div class="share">
+      <div class="share-title">Chame a tripulação — endereço da sala:</div>
+      <div id="roomAddr" class="addr">carregando...</div>
+      <div class="share-hint">Todos precisam estar no mesmo Wi-Fi. Se não abrir, libere a porta no firewall (veja o README).</div>
+    </div>
+
+    <div class="controls-help">
+      <b>Controles:</b> W/S acelerar e ré &middot; A/D leme &middot; Mouse girar torre &middot;
+      Clique esquerdo canhão &middot; Espaço salva lateral &middot; Shift turbina &middot;
+      C recentrar câmera &middot; Tab placar &middot; Enter chat &middot; Esc liberar mouse &middot; M mudo
+    </div>
+  </div>
+</div>
+
+<!-- ============================ FIM DE PARTIDA ========================= -->
+<div id="endScreen" class="overlay hidden">
+  <div class="panel">
+    <h2>FIM DA BATALHA</h2>
+    <div id="podium"></div>
+    <table class="compact">
+      <thead><tr><th>#</th><th>Capitão</th><th>Pontos</th><th>Afund.</th></tr></thead>
+      <tbody id="endBody"></tbody>
+    </table>
+    <div id="endCountdown">Próxima partida em 10s</div>
+  </div>
+</div>
+
+<!-- ============================ PAUSA (ESC) ============================ -->
+<div id="pauseScreen" class="overlay hidden">
+  <div class="panel">
+    <h2>PAUSADO</h2>
+    <p>O mouse foi liberado. Seu navio continua no mar — cuidado.</p>
+    <button id="resumeBtn">VOLTAR AO LEME</button>
+    <button id="pauseSettingsBtn" class="ghost">OPÇÕES</button>
+  </div>
+</div>
+
+<!-- ============================== OPÇÕES =============================== -->
+<!-- As linhas sao geradas por ui.js a partir de um schema; aqui fica so a
+     casca, para nao repetir o mesmo bloco de label+input dez vezes. -->
+<div id="settingsScreen" class="overlay hidden">
+  <div class="panel wide">
+    <h2>OPÇÕES</h2>
+    <div id="settingsBody"></div>
+    <div class="settings-actions">
+      <button id="settingsClose">FECHAR</button>
+      <button id="settingsReset" class="ghost">RESTAURAR PADRÕES</button>
+    </div>
+    <p class="settings-note">Suas preferências ficam salvas neste navegador.</p>
+  </div>
+</div>
+
+<!-- ============================ RECONEXÃO ============================== -->
+<div id="reconnectScreen" class="overlay hidden">
+  <div class="panel">
+    <h2>Reconectando<span class="dots"></span></h2>
+    <p>Perdemos o contato com o servidor. Tentando novamente...</p>
+  </div>
+</div>
+
+<!-- ============================ ERRO FATAL ============================= -->
+<div id="fatalScreen" class="overlay hidden">
+  <div class="panel">
+    <h2>Não foi possível iniciar</h2>
+    <p id="fatalMsg"></p>
+  </div>
+</div>
+
+<!-- socket.io client servido pelo proprio servidor Socket.IO -->
+<script src="/socket.io/socket.io.js"></script>
+<script type="module" src="/js/main.js"></script>
+</body>
+</html>

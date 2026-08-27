@@ -1,0 +1,28 @@
+# dependencias (41 MB) - reconstruidas com `npm ci`
+node_modules/
+
+# logs
+*.log
+npm-debug.log*
+
+# variaveis de ambiente
+.env
+.env.local
+
+# lixo de sistema operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# editores
+.vscode/
+.idea/
+*.swp
+
+# saida de ferramentas
+coverage/
+graphify-out/
+
+# documentacao interna (uso pessoal, nao vai para o repositorio publico)
+docs/
+CLAUDE.md

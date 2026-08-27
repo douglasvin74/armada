@@ -1,0 +1,18 @@
+{
+  "name": "meu-jogo-3d",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Armada - batalha naval 3D multiplayer no navegador (Three.js + Socket.IO, sem build)",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js",
+    "test": "node --test test/*.test.js"
+  },
+  "dependencies": {
+    "express": "4.19.2",
+    "socket.io": "4.7.5",
+    "three": "0.160.0"
+  }
+}
