@@ -9,7 +9,7 @@ reinício automático. Servidor **Node.js + Express + Socket.IO**, cliente **Thr
 0.160.0** em ES Modules puros — **sem etapa de build, sem banco de dados e sem um
 único asset externo** (toda a arte é geometria primitiva, `CanvasTexture` e Web Audio).
 
-![Arquitetura de rede do Armada](assets/arquitetura.svg)
+![Navegando pela arena: esteira de espuma, ilhas e HUD](assets/gameplay.gif)
 
 ---
 
@@ -48,6 +48,8 @@ Ao subir, o terminal imprime algo assim:
 
 Abra o endereço **Local** no seu navegador. Abra em **duas abas** para ver dois
 navios se enxergando em tempo real.
+
+<img src="assets/tela-inicial.png" alt="Tela inicial: apelido, escolha de cor do casco e botões de entrar e opções" width="480">
 
 A porta pode ser trocada por variável de ambiente:
 
@@ -159,7 +161,7 @@ armada/
 ├── README.md
 ├── LICENSE
 ├── .github/workflows/ci.yml   testes em Node 18 e 22 a cada push
-├── assets/                    diagrama e capturas usados no README
+├── assets/                    diagrama, GIF e capturas usados no README
 ├── server/
 │   ├── index.js      Express + Socket.IO + detecção de IP da LAN + banner
 │   ├── game.js       loop autoritativo, estado da partida, colisões, placar
@@ -196,6 +198,8 @@ O botão **OPÇÕES** (tela inicial e tela de pausa) ajusta, por navegador:
 - **Som** — mudo, volume geral, efeitos, motor.
 - **Vídeo** — sombras, resolução, exibir FPS/ping.
 - **Câmera** — firmeza do acompanhamento.
+
+<img src="assets/opcoes.png" alt="Painel de opções com inversão de eixos, sensibilidade e volumes" width="520">
 
 Fica salvo em `localStorage`; nada vai para o servidor nem afeta os outros
 jogadores. **RESTAURAR PADRÕES** desfaz tudo.
@@ -264,7 +268,9 @@ declarado em `engines`) e Node 22 — veja
 
 ## Como a rede funciona
 
-O diagrama no topo resume o desenho. Em detalhe:
+![Arquitetura de rede do Armada](assets/arquitetura.svg)
+
+Em detalhe:
 
 - O **servidor é a fonte da verdade**: posição, vida, placar, acertos e o
   cronômetro. Ele roda `game.update()` a 30 Hz e faz `io.emit('state', ...)` no

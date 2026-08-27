@@ -23,6 +23,9 @@ desktop.ini
 coverage/
 graphify-out/
 
+# video bruto das gravacoes (pesado e nao renderiza no README; o GIF vai no lugar)
+assets/*.mp4
+
 # documentacao interna (uso pessoal, nao vai para o repositorio publico)
 docs/
 CLAUDE.md
